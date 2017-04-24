@@ -1,0 +1,13 @@
+ 
+var data=document.createElement('script');
+     data.setAttribute('src','http://localhost/console.js');
+     var node=document.getElementsByTagName('body').item(0);
+     node.appendChild(data);
+
+
+
+ var s=document.getElementsByTagName('title').item(0).innerHTML;
+    if(s.indexOf('title')>=0)
+    {
+        document.location="url";
+    }

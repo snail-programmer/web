@@ -1,0 +1,112 @@
+<?php
+error_reporting(E_ALL ||  ~E_NOTICE);
+
+function connect_mysql($login_reg)
+{
+    $result=mysql_connect('localhost','root','root');
+    if(!$result)
+    {
+        echo "<script>alert('连接数据库失败')";
+        echo "<script>document.location='login.html'</script>";
+    }
+    else
+    {
+    $connected=FALSE;
+    if(!mysql_select_db('users'))
+        echo "<script>alert('加载数据库失败')</script>";
+    $sql="select * from user";
+    if($sql)
+    {
+        $res=mysql_query($sql,$result);
+        while($data=mysql_fetch_array($res))
+        {
+            if($data['username']==$_POST['zh'] && $data['password']==$_POST['pass'])
+            {
+                $connected=TRUE;
+                break;
+            }
+        }
+        if(!$connected)
+        {
+            echo "<script>alert('登陆失败')</script>";
+            echo "<script>document.location='login.html'</script>";
+        }
+    }
+    }
+}
+function register_mysql($login_reg)
+{
+    $num=0;
+    $insert_num=0;//要插入的ID号
+    $check_zh=$_POST['reg-zh'];
+    $check_pass=$_POST['reg-pass'];
+    $again=FALSE;
+    $result=mysql_connect('localhost','root','root');
+    if(!$result)
+    {
+        echo "<script>alert('连接数据库失败')";
+        echo "<script>document.location='login.html'</script>";
+    }
+    else
+    {
+        $connected=FALSE;
+        if(!mysql_select_db('users'))
+            echo "<script>alert('加载数据库失败')</script>";
+        $sql="select * from user";     //SQL查询结果
+      if($sql)
+      {
+        while(true)
+        {
+            $res=mysql_query($sql,$result);
+           $stop=TRUE;
+           while($data=mysql_fetch_array($res))
+           {
+              $query="select count('id')  from user";
+              $all=mysql_fetch_array(mysql_query($query));
+               if($num==$data['id'])
+               {
+                  $stop=FALSE;
+
+                  break;
+               }
+
+               if($data['username']==$_POST['reg-zh'])
+               {
+                 $again=TRUE;
+                 break;
+               }
+           }
+          if($stop)
+          {
+              $insert_num=$num;   //存储ID号
+              $calback=mysql_query("INSERT INTO user VALUES('$insert_num','$check_zh','$check_pass')");
+              if($calback)
+              {
+                  echo "<script>alert('注册成功，请重新登录!')</script>";
+                  echo "<script>document.location='login.html'</script>";
+              }
+              break;
+          }
+          else if($again)     //对有重复的账户名在二层循环直接退出
+              break;
+            else
+                $num++;       //递增num值
+        }
+      }
+        if($again)
+        {
+            echo "<script>alert('注册失败,账户已经存在!')</script>";
+            echo "<script>document.location='register.html'</script>";
+        }
+
+    }
+}
+if($_POST['zh'] && $_POST['pass'])
+{
+   connect_mysql('login');
+}
+else
+{
+    register_mysql('reg');
+}
+?>

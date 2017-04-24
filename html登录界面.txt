@@ -1,0 +1,39 @@
+
+<html>
+<head>
+    <meta charset="GBK"/>
+<style type="text/css">
+    .back{border:1px;border-radius:50px;background-color:brown;width:500px;height:250px;
+    position: absolute;top:50px;text-align:center;margin-left:30%;}
+    .class1{border:1px;border-color:blueviolet;font-size:15px;border-width:2px;
+            padding:2px;color:white;}
+</style>
+    <script>
+        function zc(that)
+        {
+
+        }
+    </script>
+</head>
+<body>
+<div class="back">
+
+    <form action="default.php" method="post">
+        <table class="class1"  style="position: absolute;top:60px;left:40px;">
+            <tr>
+                <td>账号:<input id="user" type="text" name="zh" style="width:400px;height:30px; border:1px;font-size:10px;"/></td>
+            </tr>
+            <tr>
+                <td>密码:<input  id="pass" type="password" name="pass" style="width:400px;height:30px; border:1px;font-size:10px"/></td>
+            </tr>
+            <tr>
+                <button type="submit" value="登录" style="outline:none;position:absolute;left:42%;top:160px;width:100px;height:40px;border:none;border-radius:30px;">登录</button>
+            </tr>
+            <p style="position: absolute;top:200px;left:40%;color:white;">还没有账号？立即 <a href="register.html" onclick="zc(this)" style="color:cornflowerblue;">注册</a></p>
+        </table>
+    </form>
+
+</div>
+
+</body>
+</html>

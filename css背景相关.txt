@@ -1,0 +1,5 @@
+//css渐变背景色和背景半透明实现
+{
+   radial-gradient(|shape| at |position|,color1,color2,...);
+   filter:alpha(opacity=50);opacity:0.5
+}
